@@ -2,12 +2,12 @@ package co.edu.uptc.animals_rest.controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,10 +36,14 @@ public class AnimalController {
         return animalService.getAnimalInRange(from, to);
     }
 
-    @GetMapping("/category/{categoty}")
-    public List<Animal> getAnimalsForCategoty(@PathVariable String categoty) throws IOException {
-        logger.info("getAnimal for category: {}", categoty);
-        return animalService.getAnimalForCategory(categoty);
+    @GetMapping("/numberByCategory")
+    public Map<String, Integer> getCantAnimalsForCategory()throws IOException{
+        logger.info("getAnimal called:");
+        return animalService.contarAnimalesPorCategoria(getAnimalAll());
+
     }
+
+
+
 
 }

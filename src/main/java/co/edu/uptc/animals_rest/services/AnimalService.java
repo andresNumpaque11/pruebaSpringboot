@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import co.edu.uptc.animals_rest.exception.InvalidRangeException;
 import co.edu.uptc.animals_rest.models.Animal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,18 +61,17 @@ public class AnimalService {
     
         return animales;
     }
-    public List<Animal> getAnimalForCategory(String category) throws IOException {
-        List<Animal> animals = getAnimalAll();
-        List<Animal> animalsForCategory = new ArrayList<>();
-    
-        for (Animal animal : animals) {
-            if (animal.getCategory().equals(category)) {
-                animalsForCategory.add(animal);
-            }
+     public Map<String, Integer> contarAnimalesPorCategoria(List<Animal> animales) {
+        Map<String, Integer> conteoCategorias = new HashMap<>();
+
+        for (Animal animal : animales) {
+            String categoria = animal.getCategory();
+            conteoCategorias.put(categoria, conteoCategorias.getOrDefault(categoria, 0) + 1);
         }
-        
-        return animalsForCategory;
+
+        return conteoCategorias;
     }
+
     
 }
 
